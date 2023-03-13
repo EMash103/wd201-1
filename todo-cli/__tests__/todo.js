@@ -1,5 +1,4 @@
-let todoList = require("../todo.js");
-
+const todoList = require("../todo.js");
 const { add, all, markAsComplete, overdue, dueToday, dueLater } = todoList();
 
 describe("Todo List Test Suite", () => {
@@ -8,37 +7,38 @@ describe("Todo List Test Suite", () => {
     const oneDay = 60 * 60 * 24 * 1000;
     [
       {
-        title: "Buy milk",
+        title: "Task 1",
         completed: false,
-        dueDate: new Date(today.getTime() - 2 * oneDay).toLocaleDateString(
+        dueDate: new Date(today.getTime() - 3 * oneDay).toLocaleDateString(
           "en-CA"
         ),
       },
       {
-        title: "Pay rent",
+        title: "Task 2",
         completed: false,
         dueDate: new Date().toLocaleDateString("en-CA"),
       },
       {
-        title: "Submit assignment",
+        title: "Task 3",
         completed: false,
-        dueDate: new Date(today.getTime() + 2 * oneDay).toLocaleDateString(
+        dueDate: new Date(today.getTime() + 3 * oneDay).toLocaleDateString(
           "en-CA"
         ),
       },
     ].forEach(add);
   });
   test("Should add new todo", () => {
-    expect(all.length).toEqual(3);
+    const todoItemsCount = all.length;
+
     add({
-      title: "A test item",
+      title: "Test 4",
       completed: false,
       dueDate: new Date().toLocaleDateString("en-CA"),
     });
-    expect(all.length).toEqual(4);
+    expect(all.length).toBe(todoItemsCount + 1);
   });
   test("Should mark a todo as complete", () => {
-    expect(all[0].completed).toEqual(false);
+    expect(all[0].completed).toBe(false);
     markAsComplete(0);
     expect(all[0].completed).toEqual(true);
   });
